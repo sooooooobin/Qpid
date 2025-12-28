@@ -8,23 +8,43 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.creamBackground,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
               const SizedBox(height: 32),
-              // 앱 타이틀
-              Text(
-                '💕 ${AppConstants.appName}',
-                style: Theme.of(context).textTheme.displayLarge,
+              // 로고
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppTheme.primaryCoral.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.favorite,
+                  size: 48,
+                  color: AppTheme.primaryCoral,
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
+              // 앱 이름
+              Text(
+                AppConstants.appName,
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      color: AppTheme.primaryCoral,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              // 따뜻한 문구
               Text(
                 AppConstants.appTagline,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppTheme.textLight,
+                      color: AppTheme.textDark,
                     ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 48),
 
@@ -35,52 +55,35 @@ class HomeScreen extends StatelessWidget {
                     _ModeCard(
                       level: 1,
                       color: AppTheme.level1Color,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/topic', arguments: 1),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        '/question',
+                        arguments: 1,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     _ModeCard(
                       level: 2,
                       color: AppTheme.level2Color,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/topic', arguments: 2),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        '/question',
+                        arguments: 2,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     _ModeCard(
                       level: 3,
                       color: AppTheme.level3Color,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/topic', arguments: 3),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        '/question',
+                        arguments: 3,
+                      ),
                     ),
                   ],
                 ),
               ),
-
-              const SizedBox(height: 24),
-
-              // 하단 기능 버튼
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _FeatureButton(
-                    icon: Icons.balance,
-                    label: '밸런스게임',
-                    onTap: () => Navigator.pushNamed(context, '/balance'),
-                  ),
-                  _FeatureButton(
-                    icon: Icons.casino,
-                    label: '토픽 룰렛',
-                    onTap: () =>
-                        Navigator.pushNamed(context, '/topic', arguments: 0),
-                  ),
-                  _FeatureButton(
-                    icon: Icons.lightbulb_outline,
-                    label: 'SOS 팁',
-                    onTap: () => Navigator.pushNamed(context, '/sos'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -109,13 +112,33 @@ class _ModeCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.2),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: color, width: 2),
+          border: Border.all(color: color.withOpacity(0.3), width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.1),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Row(
           children: [
-            Text(levelInfo.emoji, style: const TextStyle(fontSize: 48)),
+            Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Text(
+                  levelInfo.emoji,
+                  style: const TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
@@ -126,14 +149,14 @@ class _ModeCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
-                          vertical: 2,
+                          vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.3),
+                          color: color.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          'Lv.$level',
+                          'Level $level',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -142,9 +165,11 @@ class _ModeCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text(
-                        levelInfo.title,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                      Expanded(
+                        child: Text(
+                          levelInfo.title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                     ],
                   ),
@@ -152,59 +177,21 @@ class _ModeCard extends StatelessWidget {
                   Text(
                     levelInfo.subtitle,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppTheme.textDark,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    levelInfo.description,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppTheme.textLight,
                         ),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios, color: color),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FeatureButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _FeatureButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Icon(icon, size: 28, color: AppTheme.primaryPeach),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.textDark,
-                  ),
-            ),
+            Icon(Icons.arrow_forward_ios, color: color, size: 20),
           ],
         ),
       ),

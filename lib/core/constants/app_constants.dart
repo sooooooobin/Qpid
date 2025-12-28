@@ -1,23 +1,26 @@
 class AppConstants {
-  static const String appName = '소개팅 윙맨';
-  static const String appTagline = '어색한 침묵은 이제 그만!';
+  static const String appName = 'Q-pid';
+  static const String appTagline = '오늘 두 분의 만남을 응원해요!';
 
   // 레벨 정보
   static const Map<int, LevelInfo> levels = {
     1: LevelInfo(
       emoji: '🧊',
-      title: 'Ice Breaking',
-      subtitle: '처음 만나 어색할 때\n가벼운 취향 이야기',
+      title: '아이스브레이킹',
+      subtitle: '첫 만남의 어색함을 녹여봐요',
+      description: '가벼운 취향 위주',
     ),
     2: LevelInfo(
       emoji: '💬',
-      title: 'Values',
-      subtitle: '분위기가 풀렸을 때\n연애관 & 라이프스타일',
+      title: '딥 토크',
+      subtitle: '조금 더 깊이 서로를 알아가요',
+      description: '가치관, 라이프스타일',
     ),
     3: LevelInfo(
-      emoji: '🌙',
-      title: 'Deep Talk',
-      subtitle: '2차 가기 전\n진솔한 속마음 이야기',
+      emoji: '⚖️',
+      title: '밸런스/만약에',
+      subtitle: '둘만의 케미를 확인하는 짜릿한 선택',
+      description: '장난스러운 분위기 속에서 묘한 텐션 만들기',
     ),
   };
 
@@ -29,11 +32,13 @@ class LevelInfo {
   final String emoji;
   final String title;
   final String subtitle;
+  final String description;
 
   const LevelInfo({
     required this.emoji,
     required this.title,
     required this.subtitle,
+    required this.description,
   });
 }
 
