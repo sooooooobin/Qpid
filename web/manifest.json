@@ -1,0 +1,35 @@
+{
+    "name": "소개팅 윙맨",
+    "short_name": "윙맨",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFF5EE",
+    "theme_color": "#FFB5A7",
+    "description": "소개팅 윙맨 - 어색한 침묵은 이제 그만! 밸런스 게임과 토픽 카드로 분위기를 리드하세요.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
