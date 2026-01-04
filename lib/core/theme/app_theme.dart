@@ -91,7 +91,7 @@ class AppTheme {
             textStyle: _roundedFont(18, FontWeight.w600, primaryCoral),
           ),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 4,
           shadowColor: Colors.black.withOpacity(0.1),
@@ -147,7 +147,7 @@ class AppTheme {
             textStyle: _roundedFont(18, FontWeight.w600, primaryCoral),
           ),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: const Color(0xFF2C2C2C),
           elevation: 4,
           shadowColor: Colors.black.withOpacity(0.3),
