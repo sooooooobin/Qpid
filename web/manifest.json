@@ -1,11 +1,11 @@
 {
-    "name": "소개팅 윙맨",
-    "short_name": "윙맨",
+    "name": "Q-pid",
+    "short_name": "Q-pid",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FFF5EE",
-    "theme_color": "#FFB5A7",
-    "description": "소개팅 윙맨 - 어색한 침묵은 이제 그만! 밸런스 게임과 토픽 카드로 분위기를 리드하세요.",
+    "background_color": "#FFFDD0",
+    "theme_color": "#FF7F50",
+    "description": "Q-pid - 오늘 두 분의 만남을 응원해요! 아이스브레이킹과 딥토크, 밸런스 질문을 준비했어요.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

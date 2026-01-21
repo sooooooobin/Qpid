@@ -156,7 +156,6 @@ class QuestionCardScreen extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(3, (index) {
                     final isSelected = selectedCardIndex.value == index;
-                    final isFlipped = cardFlipped.value[index];
 
                     return Expanded(
                       child: Padding(
@@ -169,99 +168,98 @@ class QuestionCardScreen extends HookWidget {
                               final rotateValue = cardControllers[index].value * pi;
                               final showBack = cardControllers[index].value > 0.5;
 
-                              return Transform(
-                                alignment: Alignment.center,
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.001)
-                                  ..rotateY(rotateValue),
-                                child: Container(
-                                  height: 280,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: showBack
-                                          ? [
-                                              levelColor,
-                                              levelColor.withOpacity(0.8),
-                                            ]
-                                          : [
-                                              Colors.white,
-                                              AppTheme.softCoral.withOpacity(0.3),
-                                            ],
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: isSelected
-                                            ? levelColor.withOpacity(0.4)
-                                            : Colors.black.withOpacity(0.1),
-                                        blurRadius: isSelected ? 20 : 10,
-                                        offset: Offset(0, isSelected ? 8 : 4),
-                                      ),
-                                    ],
-                                  ),
+                              return AnimatedScale(
+                                scale: isSelected ? 1.08 : 1.0,
+                                duration: const Duration(milliseconds: 220),
+                                curve: Curves.easeOutBack,
+                                child: Transform.translate(
+                                  offset: Offset(0, isSelected ? -8 : 0),
                                   child: Transform(
                                     alignment: Alignment.center,
                                     transform: Matrix4.identity()
-                                      ..rotateY(showBack ? pi : 0),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: showBack && isSelected
-                                            ? Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (currentQuestion.value != null)
-                                                    Text(
-                                                      currentQuestion.value!.text,
-                                                      textAlign: TextAlign.center,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: Colors.white,
-                                                        height: 1.4,
-                                                      ),
-                                                    ),
-                                                  if (currentQuestion.value?.guide !=
-                                                      null) ...[
-                                                    const SizedBox(height: 12),
-                                                    Text(
-                                                      currentQuestion.value!.guide!,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
+                                      ..setEntry(3, 2, 0.001)
+                                      ..rotateY(rotateValue),
+                                    child: Container(
+                                      height: 280,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: showBack
+                                              ? [
+                                                  levelColor,
+                                                  levelColor.withOpacity(0.8),
+                                                ]
+                                              : [
+                                                  Colors.white,
+                                                  AppTheme.softCoral.withOpacity(0.3),
+                                                ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: isSelected
+                                                ? levelColor.withOpacity(0.45)
+                                                : Colors.black.withOpacity(0.1),
+                                            blurRadius: isSelected ? 24 : 10,
+                                            offset: Offset(0, isSelected ? 10 : 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Transform(
+                                        alignment: Alignment.center,
+                                        transform: Matrix4.identity()
+                                          ..rotateY(showBack ? pi : 0),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: showBack && isSelected
+                                                ? Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.open_in_full,
+                                                        size: 40,
                                                         color: Colors.white
-                                                            .withOpacity(0.8),
-                                                        fontStyle: FontStyle.italic,
+                                                            .withOpacity(0.9),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ],
-                                              )
-                                            : Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.help_outline,
-                                                    size: 48,
-                                                    color: AppTheme.textLight
-                                                        .withOpacity(0.5),
+                                                      const SizedBox(height: 12),
+                                                      Text(
+                                                        '질문 확인',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.w600,
+                                                          color: Colors.white
+                                                              .withOpacity(0.95),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.help_outline,
+                                                        size: 48,
+                                                        color: AppTheme.textLight
+                                                            .withOpacity(0.5),
+                                                      ),
+                                                      const SizedBox(height: 12),
+                                                      Text(
+                                                        '?',
+                                                        style: TextStyle(
+                                                          fontSize: 32,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: AppTheme.textLight
+                                                              .withOpacity(0.5),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  const SizedBox(height: 12),
-                                                  Text(
-                                                    '?',
-                                                    style: TextStyle(
-                                                      fontSize: 32,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppTheme.textLight
-                                                          .withOpacity(0.5),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -276,6 +274,69 @@ class QuestionCardScreen extends HookWidget {
                 ),
               ),
             ),
+
+            if (selectedCardIndex.value != null &&
+                currentQuestion.value != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                child: AnimatedScale(
+                  scale: 1.0,
+                  duration: const Duration(milliseconds: 220),
+                  curve: Curves.easeOutBack,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 18,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          levelColor,
+                          levelColor.withOpacity(0.85),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: levelColor.withOpacity(0.35),
+                          blurRadius: 24,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          currentQuestion.value!.text,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            height: 1.4,
+                          ),
+                        ),
+                        if (currentQuestion.value?.guide != null) ...[
+                          const SizedBox(height: 10),
+                          Text(
+                            currentQuestion.value!.guide!,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white.withOpacity(0.85),
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
 
             // 하단 버튼
             if (selectedCardIndex.value != null)
